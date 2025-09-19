@@ -1,0 +1,2343 @@
+{
+	"info": {
+		"_postman_id": "2a8c1496-278e-4143-87dc-a051e376b8ef",
+		"name": "Library Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17616814"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"abdulrahman1\",\r\n  \"email\": \"bodynafea14@gmail.com\",\r\n  \"phone\":\"01127410509\",\r\n  \"password\": \"boudy12\",\r\n  \"roleId\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/create-user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"create-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\":\"admin12\",\r\n    \"newPassword\":\"admin12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/change-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"abdulraman.ahmedd@gmail.com\",\r\n    \"code\":\"81065\",\r\n    \"newPassword\":\"admin12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"abdulraman.ahmedd@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/forget-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"forget-password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "boudyahmed@gmail.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Regnerate Code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"abdulraman.ahmedd@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/regenerate-code",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"regenerate-code"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "boudyahmed@gmail.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"pm.collectionVariables.set(\"accessToken\", response.data.accessToken);\r",
+									"pm.collectionVariables.set(\"refreshToken\", response.data.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{refreshToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/refresh-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"pm.collectionVariables.set(\"accessToken\", response.data.accessToken);\r",
+									"pm.collectionVariables.set(\"refreshToken\", response.data.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"usernameOrEmail\": \"admin\",\r\n  \"password\": \"admin12\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Admin Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/users/admin/view/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"admin",
+								"view",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users?page=0&size=6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Profile Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"contentType": "application/json",
+									"type": "file",
+									"src": "/C:/Users/boudy/Desktop/erp.drawio.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"abdulraman.ahmedd@gmail.com\",\r\n  \"username\": \"admin\",\r\n  \"phone\": \"011274108509\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roleId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/admin/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"admin",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/users/search?title=abdulrahman",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "abdulrahman"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Create Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "category",
+									"value": "{\n  \"name\": \"Databasess\",\n  \"description\": \"Books in the cyberpunk sub-genre\",\n  \"parentId\": null\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/program/Printo/Images/Banner_1705066351.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "category",
+									"value": "{\n  \"name\": \"Cdddddddydddsdfsdfdddberpunk\",\n  \"description\": \"Books in the cyberpunk sub-genre\",\n  \"parentId\": null\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/boudy/Downloads/erd.drawio (4).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Root Categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/root",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"root"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sub Categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/2/subcategories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"2",
+								"subcategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/search?title=Databases",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Databases"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "Create Member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Ali Hassan\",\r\n  \"email\": \"abdulraman.ahmedd1@gmail.com\",\r\n  \"phone\": \"01012345678\",\r\n  \"address\": \"Cairo, Egypt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Members",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Member by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/members/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"members",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/members/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"members",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Ali Hassan\",\r\n  \"email\": \"amr@example.com\",\r\n  \"phone\": \"01012345678\",\r\n  \"address\": \"Cairo, Egypt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/members/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"members",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/members/search?title=ali",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"members",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "ali"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "Create Author",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"John Smith\",\r\n  \"email\": \"john.aaasmita@example.com\",\r\n  \"bio\": \"Award-winning novelist.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/authors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Authors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "sizw",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/authors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Author by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/authors/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Author",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/authors/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Author",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"John Smith\",\r\n  \"email\": \"john.aaasmita@example.com\",\r\n  \"bio\": \"Award-winning novelist.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/authors/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/authors/search?title=sm",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "sm"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publisher",
+			"item": [
+				{
+					"name": "Create Publisher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"O'Reilly Media\",\r\n  \"address\": \"1005 Gravenstein Highway North, Sebastopol, CA\",\r\n  \"phone\": \"+1-800-998-9938\",\r\n  \"email\": \"boudybackup@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/publishers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publishers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Publishers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/publishers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publishers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Publisher by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/publishers/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publishers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Publisher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/publishers/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publishers",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Publisher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"O'Reilly Media Updated\",\r\n  \"address\": \"Updated Address, Sebastopol, CA\",\r\n  \"phone\": \"+1-800-999-1111\",\r\n  \"email\": \"support@oreilly.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/publishers/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publishers",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/publishers/search?title=s",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publishers",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "s"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Admin\",\r\n  \"description\": \"Handles library operations\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Roles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Log",
+			"item": [
+				{
+					"name": "Get all Logs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "category",
+									"value": "{\n  \"name\": \"Cyddddddberpunk\",\n  \"description\": \"Books in the cyberpunk sub-genre\",\n  \"parentId\": 1\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/program/Printo/Images/Banner_1705066351.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/logs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logs By User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/logs/user/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logs",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "Create Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "book",
+									"value": "{\n  \"title\": \"The Lord of the Rings\",\n  \"summary\": \"Classic fantasy novel by J.R.R. Tolkien.\",\n  \"language\": \"English\",\n  \"publicationYear\": 1954,\n  \"isbn\": \"978066261s102385\",\n  \"edition\": \"1st Edition\",\n  \"publisherId\": 1,\n  \"categoryId\": 2,\n  \"authorIds\": [1, 2]\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/C:/Users/boudy/Desktop/erp.drawio.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "book",
+									"value": "{\n  \"title\": \"The Lord of the Rings\",\n  \"summary\": \"Classic fantasy novel by J.R.R. Tolkien.\",\n  \"language\": \"English\",\n  \"publicationYear\": 1954,\n  \"isbn\": \"978066261s102q385\",\n  \"edition\": \"1st Edition\",\n  \"publisherId\": 1,\n  \"categoryId\": 2,\n  \"authorIds\": []\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/C:/Users/boudy/Desktop/erp.drawio.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/books/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book By Category Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/books/category/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"category",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/books/search?title=data",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "data"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Create Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": 2,\r\n  \"memberId\": 8,\r\n  \"dueDate\": \"2025-09-19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Transaction as Returned",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/7/return",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"7",
+								"return"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Transactions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transactions by Member",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/member/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"member",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transactions by Book",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/book/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"book",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transactions by Status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/status?status=Overdue",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Overdue"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		}
+	]
+}
