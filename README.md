@@ -145,6 +145,6 @@ A Postman collection is included for easy API testing.
 - To use it:
   1. Open Postman.
   2. Go to File → Import → Choose File.
-  3. Select `LibraryManagement.postman_collection.json`.
+  3. Select `Library Management.postman_collection.json`.
   4. All API requests will be ready to use.
 
