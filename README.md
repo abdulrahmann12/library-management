@@ -141,7 +141,7 @@ mvn spring-boot:run
 
 A Postman collection is included for easy API testing.
 
-- Path: `postman/LibraryManagement.postman_collection.json`
+- Path: `Library Management.postman_collection.json`
 - To use it:
   1. Open Postman.
   2. Go to File → Import → Choose File.
